@@ -1,0 +1,21 @@
+datasource db {
+  provider = "mysql" // Use mysql como banco de dados
+  url      = env("DATABASE_URL") // URL de conexão, que você pode colocar no arquivo .env
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Estoque {
+  id               Int     @id @default(autoincrement())
+  nome_produto     String
+  tamanho_pallet   Float
+  largura          Float
+  comprimento      Float
+  altura           Float
+  corredor         Float
+  saida            Float
+  piking           Float
+  capacidade_pallet Int
+}
