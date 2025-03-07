@@ -1,5 +1,8 @@
 import { DataSource } from 'typeorm';
-import { Estoque } from '../models/estoqueModel';
+import { PrismaClient } from '@prisma/client';
+import { Estoque } from '../entities/estoque'; // Ensure that the file exists at this path
+
+const prisma = new PrismaClient();
 
 const AppDataSource = new DataSource({
   type: 'mysql',  // Usando MySQL
@@ -7,10 +10,17 @@ const AppDataSource = new DataSource({
   port: 3306,  // Porta padrão do MySQL
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-  entities: [Estoque],
+  entities: [Estoque],  // Entidades que serão usadas
   synchronize: true,  // Cria as tabelas automaticamente
   logging: true,
 });
+
+AppDataSource.initialize()
+  .then(() => {
+    console.log('Data Source has been initialized!');
+  })
+  .catch((err) => {
+    console.error('Error during Data Source initialization', err);
+  });
 
 export default AppDataSource;

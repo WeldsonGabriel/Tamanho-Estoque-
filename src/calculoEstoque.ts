@@ -12,6 +12,7 @@ interface CalculoEstoqueInput {
 }
 
 async function calcularEstoque(input: CalculoEstoqueInput) {
+  console.log('Iniciando cálculo de estoque', input);
   const { tamanhoLocal, tamanhoPalet, espacoCorredor, espacoSaida, espacoPicking, nomeProduto } = input;
 
   const espacoTotalUtilizavel = tamanhoLocal - (espacoCorredor + espacoSaida + espacoPicking);
@@ -31,7 +32,7 @@ async function calcularEstoque(input: CalculoEstoqueInput) {
     },
   });
 
-  console.log(`Quantidade de paletes calculada: ${quantidadePaletes}`);
+  console.log('Cálculo de estoque concluído', { quantidadePaletes });
   return quantidadePaletes;
 }
 

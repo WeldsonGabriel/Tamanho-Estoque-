@@ -7,12 +7,13 @@
   "license": "MIT",
   "scripts": {
     "start": "node dist/index.js",
-    "dev": "ts-node-dev --respawn --transpileOnly src/index.ts",
-    "build": "tsc",
+    "dev": "vite",
+    "build": "vite build",
     "start:dev": "nodemon --exec ts-node src/index.ts",
     "test": "jest"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
     "@types/jest": "^29.5.14",
     "@types/node": "^22.13.9",
@@ -29,9 +30,14 @@
   },
   "dependencies": {
     "@prisma/client": "^6.4.1",
+    "axios": "^1.8.2",
+    "cors": "^2.8.5",
     "express": "^4.21.2",
     "pg": "^8.13.3",
+    "react-dom": "^19.0.0",
+    "react-router-dom": "^7.3.0",
     "reflect-metadata": "^0.2.2",
+    "tailwindcss": "^4.0.12",
     "typedi": "^0.10.0",
     "typeorm": "^0.3.21"
   }
