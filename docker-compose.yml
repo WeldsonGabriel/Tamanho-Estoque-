@@ -1,22 +1,30 @@
 version: '3.8'
+
 services:
-  db:
-    image: mysql:8.0
-    container_name: db
-    environment:
-      MYSQL_ROOT_PASSWORD: rootpassword  # Senha do root do MySQL
-      MYSQL_DATABASE: estoque           # Banco de dados inicial
-    volumes:
-      - mysql_data:/var/lib/mysql
+  app:
+    build: .
     ports:
-      - "3306:3306"  # Expondo a porta 3306
-    networks:
-      - my_network
-    restart: always
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - DB_HOST=${DB_HOST}
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_DATABASE=${DB_DATABASE}
+    depends_on:
+      - db
+
+  db:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - db_data:/var/lib/mysql
 
 volumes:
-  mysql_data: {}
-
-networks:
-  my_network:
-    driver: bridge
+  db_data:
